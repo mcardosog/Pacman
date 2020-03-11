@@ -10,6 +10,7 @@ function GameRunner() {
   this._game = new Game();
   currentGame = this._game;
   this._keyboard = new Keyboard(this._game);
+  this._audioControl = new AudioControl(this._game);
   
   this._game.getEventManager().addSubscriber(SoundManager,
     [EVENT_PELLET_EATEN,
@@ -43,24 +44,4 @@ GameRunner.prototype._gameLoop = function () {
 GameRunner.prototype._clearCanvas = function () {
   this._ctx.fillStyle = "black";
   this._ctx.fillRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
-};
-
-var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-recognition.lang = 'en-US';
-recognition.interimResults = false;
-recognition.maxAlternatives = 5;
-recognition.continuous = true;
-recognition.start();
-
-recognition.onresult = function(event) {
-    //console.log('You said: ', event.results[0][0].transcript);
-    console.log(event.results);
-    if(event.results[0][0].transcript == "go up"){
-    console.log("xx");
-    currentGame.keyPressed(KEY_UP);
-    }
-    else{
-    console.log('yy');
-    currentGame.keyPressed(KEY_DOWN);
-    }
 };

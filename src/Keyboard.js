@@ -12,7 +12,6 @@ function Keyboard(game) {
 }
 
 Keyboard.prototype._listen = function () {
-  console.log("22");
   var that = this;
   $(document).keydown(function (event) {
     that._keysRealTime[event.which] = true;
@@ -26,10 +25,8 @@ Keyboard.prototype._listen = function () {
 };
 
 Keyboard.prototype.handleKeypresses = function () {
-  console.log("11");
   for (var key in this._keysCurrentFrame) {
     if (this._keysCurrentFrame[key]) {
-      console.log(key);
       this._game.keyPressed(key);
       if (!this._keysRealTime[key]) {
         this._keysCurrentFrame[key] = false;
