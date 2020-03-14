@@ -307,38 +307,52 @@ Pacman.prototype.placeToStartPosition = function () {
 
 Pacman.prototype.findClosestVulnerableGhost = function () {
   var minDistance = Number.MAX_VALUE;
+  var path = null;
 
-  var i = 1;
   for(var i in this._scene._ghosts) {
     let g = this._scene._ghosts[i];
     if(g._state == GHOST_STATE_VULNERABLE) {
-      console.log(g);
-      
+      path = this._scene.getWaypointsToObjective(g.getX(), g.getY());
+      if(path.length < minDistance) {
+        minDistance = path.length;
+      }
     }
-    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  }
+  if(path != null) {
+    console.log(minDistance);
   }
 };
 
 Pacman.prototype.findClosestPowerPellet = function () {
-  var i = 1;
-  for(var i in this._scene._pellet) {
-    let p = this._scene._pellet[i];
-    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  var minDistance = Number.MAX_VALUE;
+  var path = null;
+  
+  for(var i in this._scene._pellets) {
+    let p = this._scene._pellets[i];
+    if(p instanceof PowerPellet) {
+      path = this._scene.getWaypointsToObjective(p.getX(), p.getY());
+      if(path.length < minDistance) {
+        minDistance = path.length;
+      }
+    }
+  }
+  if(path != null) {
+    console.log(minDistance);
   }
 };
 
 Pacman.prototype.findClosestPellet = function () {
   var i = 1;
-  for(var i in this._scene._pellet) {
-    let p = this._scene._pellet[i];
+  for(var i in this._scene._pellets) {
+    let p = this._scene._pellets[i];
     //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
   }
 };
 
 Pacman.prototype.findCherry = function () {
   var i = 1;
-  for(var i in this._scene._pellet) {
-    let p = this._scene._pellet[i];
+  for(var i in this._scene._pellets) {
+    let p = this._scene._pellets[i];
     //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
   }
 };

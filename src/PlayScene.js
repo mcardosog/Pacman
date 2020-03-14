@@ -55,7 +55,7 @@ PlayScene.prototype.tick = function () {
   }
   
   this._cherry.tick();
-  this._pacman.findClosestVulnerableGhost();
+  this._pacman.findClosestPowerPellet();    //<----------------------
 
 };
 
@@ -538,10 +538,10 @@ PlayScene.prototype.isPause = function () {
 /*---------------------------------------------------------*/
 
 //Returns the path of points from Pacman to a given point
-PlayScene.prototype.getWaypointsToObjective = function (point) {
+PlayScene.prototype.getWaypointsToObjective = function (pX, pY) {
   var result = [];
-  var from = [this.pxToCoord(_pacman.getX()), this.pxToCoord(_pacman.getY())];
-  var to = [this.pxToCoord(point.getX()), this.pxToCoord(point.getY())];
+  var from = [this.pxToCoord(this._pacman.getX()), this.pxToCoord(this._pacman.getY())];
+  var to = [this.pxToCoord(pX), this.pxToCoord(pY)];
   var wayPoints = AStar(this._getGrid(), from, to);
   for (var wp in wayPoints) {
     result.push(new Position(wayPoints[wp][0] * TILE_SIZE, wayPoints[wp][1] * TILE_SIZE));
