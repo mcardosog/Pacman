@@ -55,6 +55,8 @@ PlayScene.prototype.tick = function () {
   }
   
   this._cherry.tick();
+  this._pacman.findClosestVulnerableGhost();
+
 };
 
 PlayScene.prototype.draw = function (ctx) {
@@ -531,4 +533,18 @@ PlayScene.prototype.isPause = function () {
   return this._readyMessage.isVisible() ||
     this._pointsMessage.isVisible() ||
     this._pacmanDiesPause.isActive();
+};
+
+/*---------------------------------------------------------*/
+
+//Returns the path of points from Pacman to a given point
+PlayScene.prototype.getWaypointsToObjective = function (point) {
+  var result = [];
+  var from = [this.pxToCoord(_pacman.getX()), this.pxToCoord(_pacman.getY())];
+  var to = [this.pxToCoord(point.getX()), this.pxToCoord(point.getY())];
+  var wayPoints = AStar(this._getGrid(), from, to);
+  for (var wp in wayPoints) {
+    result.push(new Position(wayPoints[wp][0] * TILE_SIZE, wayPoints[wp][1] * TILE_SIZE));
+  }
+  return result;
 };

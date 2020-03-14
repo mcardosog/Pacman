@@ -302,3 +302,43 @@ Pacman.prototype.getStartPosition = function () {
 Pacman.prototype.placeToStartPosition = function () {
   this._sprite.placeToStartPosition();
 };
+
+/*---------------------------------------------------------*/
+
+Pacman.prototype.findClosestVulnerableGhost = function () {
+  var minDistance = Number.MAX_VALUE;
+
+  var i = 1;
+  for(var i in this._scene._ghosts) {
+    let g = this._scene._ghosts[i];
+    if(g._state == GHOST_STATE_VULNERABLE) {
+      console.log(g);
+      
+    }
+    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  }
+};
+
+Pacman.prototype.findClosestPowerPellet = function () {
+  var i = 1;
+  for(var i in this._scene._pellet) {
+    let p = this._scene._pellet[i];
+    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  }
+};
+
+Pacman.prototype.findClosestPellet = function () {
+  var i = 1;
+  for(var i in this._scene._pellet) {
+    let p = this._scene._pellet[i];
+    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  }
+};
+
+Pacman.prototype.findCherry = function () {
+  var i = 1;
+  for(var i in this._scene._pellet) {
+    let p = this._scene._pellet[i];
+    //console.log("Ghost "+i+" x:"+g.getX()+" | y:"+g.getY()); 
+  }
+};

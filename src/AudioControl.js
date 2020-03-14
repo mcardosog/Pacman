@@ -6,7 +6,7 @@ function AudioControl(game) {
 var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 recognition.lang = 'en-US';
 recognition.interimResults = true;
-recognition.maxAlternatives = 5;
+recognition.maxAlternatives = 3;
 recognition.continuous = true;
 recognition.start();
 
@@ -41,6 +41,4 @@ recognition.onresult = function(event) {
         return; 
     }
     currentGame.keyPressed(keyFromAudio);
-    
-   console.log(Date.now);
 };
