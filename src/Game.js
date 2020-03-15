@@ -1,6 +1,7 @@
 function Game() {
   this._scene = new StartupScene(this);
   this._eventManager = new EventManager();
+  var keyPress; 
 }
 
 Game.prototype.getEventManager = function () {
@@ -17,6 +18,7 @@ Game.prototype.getScene = function () {
 
 Game.prototype.keyPressed = function (key) {
   this._scene.keyPressed(key);
+  keyPress = this._scene.keyPressed(key);
 };
 
 Game.prototype.tick = function () {
@@ -24,5 +26,5 @@ Game.prototype.tick = function () {
 };
 
 Game.prototype.draw = function (surface) {
-  this._scene.draw(surface);
+    this._scene.draw(surface);
 };
