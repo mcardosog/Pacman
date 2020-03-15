@@ -336,9 +336,7 @@ Pacman.prototype.findClosestPowerPellet = function () {
       }
     }
   }
-  if(path != null) {
-    console.log(minDistance);
-  }
+  return path;
 };
 
 Pacman.prototype.findClosestPellet = function () {
