@@ -3,10 +3,10 @@ function AudioControl(game) {
     currentGame = game;
 }
 
-var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+var recognition = new webkitSpeechRecognition();//new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 recognition.lang = 'en-US';
 recognition.interimResults = true;
-recognition.maxAlternatives = 3;
+recognition.maxAlternatives = 5;
 recognition.continuous = true;
 recognition.start();
 
@@ -21,7 +21,7 @@ let gestureStore = {
 recognition.onresult = function(event) {
     
     var keyFromAudio = null;
-    //if(!event.results[event.results.length-1].isFinal) { return; }
+    if(!event.results[event.results.length-1].isFinal) { return; }
     for(i = 0; i < event.results[event.results.length-1].length; i++) {
         let iResult = event.results[event.results.length-1][i]; 
         if(keyFromAudio != null) { 
@@ -40,5 +40,5 @@ recognition.onresult = function(event) {
         console.log('???');
         return; 
     }
-    currentGame.keyPressed(keyFromAudio);
+    currentGame._keyPressed = keyFromAudio;
 };

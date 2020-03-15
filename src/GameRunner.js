@@ -33,12 +33,17 @@ GameRunner.prototype._createCanvasContext = function () {
   return canvas.getContext('2d');
 };
 
+var position;
+
 GameRunner.prototype._gameLoop = function () {
   this._keyboard.handleKeypresses();
   this._game.tick();
   
   this._clearCanvas();
   this._game.draw(this._ctx);
+
+  this._game.followDirection();
+
 };
 
 GameRunner.prototype._clearCanvas = function () {

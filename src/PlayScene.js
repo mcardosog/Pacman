@@ -55,7 +55,7 @@ PlayScene.prototype.tick = function () {
   }
   
   this._cherry.tick();
-  this._pacman.findClosestPowerPellet();    //<----------------------
+  this._pacman.findClosestPowerPellet();    //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 };
 
