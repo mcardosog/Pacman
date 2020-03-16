@@ -7,9 +7,9 @@ var GHOST_STATE_NORMAL = 'normal';
 var GHOST_STATE_VULNERABLE = 'vulnerable';
 var GHOST_STATE_RUN_HOME = 'run_home';
 
-var GHOST_SPEED_FAST = 8;
-var GHOST_SPEED_NORMAL = 4;
-var GHOST_SPEED_SLOW = 2;
+var GHOST_SPEED_FAST = 4;   //IT WAS 8
+var GHOST_SPEED_NORMAL = 2; //IT WAS 4
+var GHOST_SPEED_SLOW = 1; //IT WAS 2
 
 function Ghost(name, scene) {
   this._name = name;

@@ -2,16 +2,12 @@ var FPS = 24;
 var CANVAS_WIDTH = 540;
 var CANVAS_HEIGHT = 484;
 
-var currentGame;
-
-
 function GameRunner() {
   this._ctx = this._createCanvasContext();
   this._game = new Game();
-  currentGame = this._game;
   this._keyboard = new Keyboard(this._game);
   this._audioControl = new AudioControl(this._game);
-  
+
   this._game.getEventManager().addSubscriber(SoundManager,
     [EVENT_PELLET_EATEN,
      EVENT_POWER_PELLET_EATEN,
@@ -33,12 +29,16 @@ GameRunner.prototype._createCanvasContext = function () {
   return canvas.getContext('2d');
 };
 
+var position;
+
 GameRunner.prototype._gameLoop = function () {
+  this._game.followDirection();
   this._keyboard.handleKeypresses();
   this._game.tick();
   
   this._clearCanvas();
   this._game.draw(this._ctx);
+
 };
 
 GameRunner.prototype._clearCanvas = function () {

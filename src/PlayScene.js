@@ -14,7 +14,7 @@ function PlayScene(game, maps) {
   
   this._pacman = new Pacman(this, game);
   this._pacman.setStrategy(new PacmanPlaySceneStrategy(this._pacman, this));
-  this._pacman.setSpeed(4);
+  this._pacman.setSpeed(2);                                                 //IT WAS 4
   this._pacman.requestNewDirection(DIRECTION_RIGHT);
   
   this._currentLevel = 1;
@@ -45,7 +45,7 @@ PlayScene.prototype.tick = function () {
   this._pacman.tick();
   
   for (var ghost in this._ghosts) {
-    this._ghosts[ghost].tick();
+    this._ghosts[ghost].tick();       //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   }
   
   for (var pellet in this._pellets) {
@@ -55,6 +55,8 @@ PlayScene.prototype.tick = function () {
   }
   
   this._cherry.tick();
+  //this._pacman.findClosestPowerPellet();    //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 };
 
 PlayScene.prototype.draw = function (ctx) {
@@ -531,4 +533,18 @@ PlayScene.prototype.isPause = function () {
   return this._readyMessage.isVisible() ||
     this._pointsMessage.isVisible() ||
     this._pacmanDiesPause.isActive();
+};
+
+/*---------------------------------------------------------*/
+
+//Returns the path of points from Pacman to a given point
+PlayScene.prototype.getWaypointsToObjective = function (pX, pY) {
+  var result = [];
+  var from = [this.pxToCoord(this._pacman.getX()), this.pxToCoord(this._pacman.getY())];
+  var to = [this.pxToCoord(pX), this.pxToCoord(pY)];
+  var wayPoints = AStar(this._getGrid(), from, to);
+  for (var wp in wayPoints) {
+    result.push(new Position(wayPoints[wp][0] * TILE_SIZE, wayPoints[wp][1] * TILE_SIZE));
+  }
+  return result;
 };
