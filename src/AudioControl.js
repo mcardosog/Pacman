@@ -52,7 +52,10 @@ recognition.onresult = function(event) {
         }
     }
 
-    if (keyFromAudio != null) { currentGame._keyPressed =  keyFromAudio; }
+    if (keyFromAudio != null) {
+        currentGame._keyPressed =  keyFromAudio;
+        currentGame.singleDirection = true;
+    }
     else if (actionFromAudio != null) {
         var path = null;
         switch(actionFromAudio) {
@@ -73,6 +76,7 @@ recognition.onresult = function(event) {
                 console.log('Find the cherry');
                 break;
         }
+        currentGame.singleDirection = false;
         currentGame.pathToTaget = path;
     }
     console.log('\n---END---\n');

@@ -1,13 +1,10 @@
-var FPS = 15;
+var FPS = 24;
 var CANVAS_WIDTH = 540;
 var CANVAS_HEIGHT = 484;
-
-var currentGame;
 
 function GameRunner() {
   this._ctx = this._createCanvasContext();
   this._game = new Game();
-  currentGame = this._game;
   this._keyboard = new Keyboard(this._game);
   this._audioControl = new AudioControl(this._game);
 

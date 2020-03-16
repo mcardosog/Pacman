@@ -309,6 +309,7 @@ Pacman.prototype.findClosestVulnerableGhost = function () {
   var minDistance = Number.MAX_VALUE;
   var minPath = null;
   var path = null;
+  var closestVulGhost = null;
 
   for(var i in this._scene._ghosts) {
     let g = this._scene._ghosts[i];
@@ -317,9 +318,11 @@ Pacman.prototype.findClosestVulnerableGhost = function () {
       if(path.length < minDistance) {
         minDistance = path.length;
         minPath = path;
+        closestVulGhost = g;
       }
     }
   }
+  this._game.closestVulGhost = closestVulGhost;
   return minPath;
 };
 
