@@ -3,6 +3,8 @@ var EVENT_POWER_PELLET_EATEN = 'EVENT_POWER_PELLET_EATEN';
 var EVENT_GHOST_EATEN = 'EVENT_GHOST_EATEN';
 var EVENT_CHERRY_EATEN = 'EVENT_CHERRY_EATEN';
 var EVENT_PACMAN_DIES_ANIMATION_STARTED = 'EVENT_PACMAN_DIES_ANIMATION_STARTED';
+var lastScore =0; 
+
 
 function Pacman(scene, game) {
   this._scene = scene;
@@ -209,6 +211,10 @@ Pacman.prototype._resetDeathFrame = function () {
 
 Pacman.prototype.diesAnimationCompleted = function () {
   if (this._livesCount == 0) {
+
+      lastScore = this.getCurrentScore(); 
+      this.setLastScore(lastScore); 
+      console.log("last score: " + lastScore); 
       this._game.setScene(new StartupScene(this._game));
     return;
   }
@@ -226,6 +232,19 @@ Pacman.prototype.diesAnimationCompleted = function () {
 
 
 /*--------------------------- Sprite delegation --------------------------------*/
+
+
+Pacman.prototype.getLastScore = function () {
+  return lastScore; 
+};
+
+Pacman.prototype.setLastScore = function (score) {
+    lastScore = score;  
+};
+
+Pacman.prototype.getCurrentScore = function () {
+  return this._scene.getScore(); 
+};
 
 Pacman.prototype.getRect = function () {
   return this._sprite.getRect();

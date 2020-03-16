@@ -1,3 +1,6 @@
+var lastScore =0; 
+var highScore =0; 
+
 function StartupScene(game) {
   this._game = game;
   this._pressEnterText = new PressEnterText();
@@ -9,11 +12,11 @@ function StartupScene(game) {
   this._pacman.setSpeed(4);
   this._pacman.setPosition(new Position(90, 160));
   this._pacman.setDirection(DIRECTION_RIGHT);
-  var keypress; 
+  this._keypress; 
 }
 
 StartupScene.prototype.keyPressed = function (key) {
-  keypress = key; 
+  this._keypress = key; 
   if (key == KEY_ENTER) {
     this._game.setScene(new PlayScene(this._game));
   }
@@ -26,6 +29,13 @@ StartupScene.prototype.tick = function () {
 };
 
 StartupScene.prototype.draw = function (ctx) {
+
+  lastScore = this._pacman.getLastScore(); 
+
+  if(lastScore > highScore){
+    highScore = lastScore; 
+  }
+  
   this._drawTitle(ctx);
   this._pressLanguageText.draw(ctx);
   this._drawLanguages(ctx);
@@ -53,13 +63,19 @@ StartupScene.prototype._drawLanguages = function (ctx) {
 
   ctx.fillText("ENGLISH", 230, 300);
   ctx.fillText("SPANISH", 230, 330);
+  
+  var SCORE_X = 55;
+  var SCORE_Y = 30;
+  ctx.fillStyle = "#dedede";
+  ctx.font = "bold 14px 'Lucida Console', Monaco, monospace"
+  var text = "HIGH SCORE: " + highScore;
+  ctx.fillText(text, SCORE_X, SCORE_Y);
 
- if(keypress == KEY_SPACE){
-   ctx.clearRect(70, 150, 600, 600); 
+ if(this._keypress == KEY_SPACE){
+   ctx.clearRect(70, 180, 600, 600); 
    ctx.fillText("CONTROL: ARROW KEYS", 180, 300);
    this._pressEnterText.draw(ctx);
    
-
  }
   
 };
