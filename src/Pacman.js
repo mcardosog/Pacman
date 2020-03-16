@@ -12,14 +12,14 @@ function Pacman(scene, game) {
   this._sprite = new Sprite(scene);
   this._sprite.setRect(new Rect({x: 0, y: 0, w: TILE_SIZE, h: TILE_SIZE}));
   this._visible = true;
-  
+
   this._frames = [1,2,3,2];
   this._frame = 0;
-  
+
   this._deathFrames = [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,11,11,12,12,12,12];
   this._resetDeathFrame();
   this._playDiesAnimation = true;
-  
+
   this._livesCount = 2;
   this._eatenPelletSound = 'pellet1';
 }
@@ -103,7 +103,7 @@ Pacman.prototype.handleCollisionsWithPellets = function () {
   for (var pellet in pellets) {
     if (this._sprite.collidedWith(pellets[pellet])) {
       this._scene.increaseScore(pellets[pellet].getValue());
-      
+
       if (pellets[pellet] instanceof PowerPellet) {
         this._scene.makeGhostsVulnerable();
         this._game.getEventManager().fireEvent({'name': EVENT_POWER_PELLET_EATEN});
@@ -112,7 +112,7 @@ Pacman.prototype.handleCollisionsWithPellets = function () {
         this._switchEatenPelletSound();
         this._game.getEventManager().fireEvent({'name': EVENT_PELLET_EATEN, 'pacman': this});
       }
-      
+
       this._scene.removePellet(pellets[pellet]);
       if (this._scene.getPellets().length == 0) {
         this._scene.nextLevel();
@@ -164,7 +164,7 @@ Pacman.prototype.draw = function (ctx) {
   if (!this._visible) {
     return;
   }
-  
+
   var x = this._scene.getX() + this.getX();
   var y = this._scene.getY() + this.getY();
   ctx.drawImage(ImageManager.getImage(this.getCurrentFrame()), x, y);
@@ -320,4 +320,70 @@ Pacman.prototype.getStartPosition = function () {
 
 Pacman.prototype.placeToStartPosition = function () {
   this._sprite.placeToStartPosition();
+};
+
+/*---------------------------------------------------------*/
+
+Pacman.prototype.findClosestVulnerableGhost = function () {
+  var minDistance = Number.MAX_VALUE;
+  var minPath = null;
+  var path = null;
+  var closestVulGhost = null;
+
+  for(var i in this._scene._ghosts) {
+    let g = this._scene._ghosts[i];
+    if(g._state == GHOST_STATE_VULNERABLE) {
+      path = this._scene.getWaypointsToObjective(g.getX(), g.getY());
+      if(path.length < minDistance) {
+        minDistance = path.length;
+        minPath = path;
+        closestVulGhost = g;
+      }
+    }
+  }
+  this._game.closestVulGhost = closestVulGhost;
+  return minPath;
+};
+
+Pacman.prototype.findClosestPowerPellet = function () {
+  var minDistance = Number.MAX_VALUE;
+  var minPath = null;
+  var path = null;
+
+  for(var i in this._scene._pellets) {
+    let p = this._scene._pellets[i];
+    if(p instanceof PowerPellet) {
+      path = this._scene.getWaypointsToObjective(p.getX(), p.getY());
+      if(path.length < minDistance) {
+        minDistance = path.length;
+        minPath = path;
+      }
+    }
+  }
+  return minPath;
+};
+
+Pacman.prototype.findClosestPellet = function () {
+  var minDistance = Number.MAX_VALUE;
+  var minPath = null;
+  var path = null;
+
+  for(var i in this._scene._pellets) {
+    let p = this._scene._pellets[i];
+    path = this._scene.getWaypointsToObjective(p.getX(), p.getY());
+    if(path.length < minDistance) {
+      minDistance = path.length;
+      minPath = path;
+    }
+  }
+  return minPath;
+};
+
+Pacman.prototype.findCherry = function () {
+  var path = null;
+  if (!this._scene._cherry._visible) { return path; }
+
+  let cherryPos = this._scene._cherry.getPosition();
+  path = this._scene.getWaypointsToObjective(cherryPos.x, cherryPos.y);
+  return path;
 };
