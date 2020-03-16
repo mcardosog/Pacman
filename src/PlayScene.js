@@ -45,7 +45,7 @@ PlayScene.prototype.tick = function () {
   this._pacman.tick();
   
   for (var ghost in this._ghosts) {
-    this._ghosts[ghost].tick();
+    //this._ghosts[ghost].tick();       //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   }
   
   for (var pellet in this._pellets) {
@@ -55,7 +55,7 @@ PlayScene.prototype.tick = function () {
   }
   
   this._cherry.tick();
-  this._pacman.findClosestPowerPellet();    //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //this._pacman.findClosestPowerPellet();    //<---------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 };
 

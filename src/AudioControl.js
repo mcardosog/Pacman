@@ -19,21 +19,23 @@ let gestureStore = {
 };
 
 let actionStore = {
-    'power pill': 1,
+    'power': 1,
     'pill': 2,
     'ghost': 3,
+    'cherry': 4,
 }
 
 recognition.onresult = function(event) {
-    
+
     var keyFromAudio = null;
     var actionFromAudio = null;
     if(!event.results[event.results.length-1].isFinal) { return; }
     for(i = 0; i < event.results[event.results.length-1].length; i++) {
-        let iResult = event.results[event.results.length-1][i]; 
-        if(keyFromAudio != null) { 
+        if(keyFromAudio != null || actionFromAudio != null) { break; }
+        let iResult = event.results[event.results.length-1][i];
+        if(keyFromAudio != null) {
             console.log(keyFromAudio);
-            break; 
+            break;
         }
         for(var key in gestureStore) {
             if(iResult.transcript.includes(key)) {
@@ -52,20 +54,26 @@ recognition.onresult = function(event) {
 
     if (keyFromAudio != null) { currentGame._keyPressed =  keyFromAudio; }
     else if (actionFromAudio != null) {
+        var path = null;
         switch(actionFromAudio) {
             case 1:
-                let path = currentGame._scene._pacman.findClosestPowerPellet();
-                currentGame.pathToTaget = path;
+                path = currentGame._scene._pacman.findClosestPowerPellet();
                 console.log('Find a power pill');
                 break;
             case 2:
+                path = currentGame._scene._pacman.findClosestPellet();
                 console.log('Find a pill');
                 break;
             case 3:
+                path = currentGame._scene._pacman.findClosestVulnerableGhost();
                 console.log('Find a ghost');
                 break;
+            case 4:
+                path = currentGame._scene._pacman.findCherry();
+                console.log('Find the cherry');
+                break;
         }
-    } 
-
-    console.log('???');
+        currentGame.pathToTaget = path;
+    }
+    console.log('\n---END---\n');
 };

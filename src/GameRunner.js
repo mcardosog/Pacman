@@ -35,14 +35,12 @@ GameRunner.prototype._createCanvasContext = function () {
 var position;
 
 GameRunner.prototype._gameLoop = function () {
+  this._game.followDirection();
   this._keyboard.handleKeypresses();
   this._game.tick();
   
   this._clearCanvas();
   this._game.draw(this._ctx);
-
-
-  this._game.followDirection();
 
 };
 
