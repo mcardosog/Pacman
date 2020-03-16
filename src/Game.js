@@ -78,5 +78,5 @@ Game.prototype.tick = function () {
 };
 
 Game.prototype.draw = function (surface) {
-  this._scene.draw(surface);
+    this._scene.draw(surface);
 };
