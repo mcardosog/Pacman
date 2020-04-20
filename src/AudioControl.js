@@ -79,5 +79,5 @@ recognition.onresult = function(event) {
         currentGame.singleDirection = false;
         currentGame.pathToTaget = path;
     }
-    console.log('\n---END---\n');
+    console.log('---    ACTION PROCESSED    ---\n');
 };

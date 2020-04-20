@@ -18,6 +18,7 @@ function GameRunner() {
 }
 
 GameRunner.prototype.run = function () {
+    callServer();
   var that = this;
   setInterval(function () { that._gameLoop(); }, 1000 / FPS);
 };
@@ -38,8 +39,14 @@ GameRunner.prototype._gameLoop = function () {
   
   this._clearCanvas();
   this._game.draw(this._ctx);
-
 };
+
+function callServer() {
+    fetch("http://localhost:3000/pacmanCommunicator")
+        .then(res => res.text())
+        .then(res => alert(res));
+}
+
 
 GameRunner.prototype._clearCanvas = function () {
   this._ctx.fillStyle = "black";
