@@ -93,7 +93,7 @@ PlayScene.prototype._drawScore = function (ctx) {
 
 PlayScene.prototype._drawLives = function (ctx) {
   var x = 55;
-  var width = 18
+  var width = 28
   var y = 430;
   
   for (var i = 0; i < this._pacman.getLivesCount(); ++i) {
