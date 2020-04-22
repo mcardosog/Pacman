@@ -4,7 +4,7 @@ Bilingual gator PACMAN is an HTML5-JavaScript game that receives inputs using th
 
 ## Implementation 
 
-The game was retrieved from [pip](https://pip.pypa.io/en/stable/) (Author: ) and it was modified to use The Weeb Speech API ([webkitSpeechRecognition]()) to simulate keyboard input. 
+The game was retrieved from [newagebegins](https://github.com/newagebegins/pacman) (Author:Slava Rachek) and it was modified to use The Weeb Speech API ([webkitSpeechRecognition]()) to simulate keyboard input. 
 
 After the modifications, the app counts with a local dictionary to detect intents like directions or actions like "find a ghost". In order to make the app response more natural, the app counts with an [Express](https://expressjs.com) server that handles not recognize transcriptions. The server uses the [Monkey API](https://monkeylearn.com) to recognize the intent.
 
