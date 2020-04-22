@@ -10,7 +10,7 @@ function StartupScene(game) {
   this._pacman.setStrategy(new PacmanStartupSceneStrategy(this._pacman, this));
   this._pacman.setCurrentSpeed(4);
   this._pacman.setSpeed(4);
-  this._pacman.setPosition(new Position(90, 160));
+  this._pacman.setPosition(new Position(90, 190));
   this._pacman.setDirection(DIRECTION_RIGHT);
   this._keypress; 
 }
@@ -53,16 +53,18 @@ StartupScene.prototype.getY = function () {
 
 StartupScene.prototype._drawTitle = function (ctx) {
   ctx.fillStyle = "#ffff00";
-  ctx.font = "bold 90px 'Lucida Console', Monaco, monospace"
-  ctx.fillText("PAC-MAN", 76, 150);
+  ctx.font = "bold 50px 'Press Start 2P', cursive"; 
+  ctx.fillText("GATOR", 155, 120); 
+  ctx.fillStyle = "#ffff00";
+  ctx.font = "bold 60px 'Press Start 2P', cursive"; 
+  ctx.fillText("PAC-MAN", 76, 195);
 };
 
 StartupScene.prototype._drawLanguages = function (ctx) {
   ctx.fillStyle = "#dedede";
   ctx.font = "bold 16px 'Lucida Console', Monaco, monospace"; 
 
-  ctx.fillText("ENGLISH", 230, 300);
-  ctx.fillText("SPANISH", 230, 330);
+  ctx.fillText("LANGUAGES: ENGLISH / SPANISH", 147, 330);
   
   var SCORE_X = 55;
   var SCORE_Y = 30;
